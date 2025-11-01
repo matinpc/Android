@@ -1,0 +1,90 @@
+import java.util.Scanner;
+
+class Calculator {
+    private double num1;
+    private double num2;
+    private char operator;
+
+    public Calculator(double num1, double num2, char operator) {
+        this.num1 = num1;
+        this.num2 = num2;
+        this.operator = operator;
+    }
+    
+    public double calculate() {
+        switch (operator) {
+            case '+':
+                return add();
+            case '-':
+                return subtract();
+            case '*':
+                return multiply();
+            case '/':
+                return divide();
+            default:
+                throw new IllegalArgumentException("Operator not found!");
+        }
+    }
+    
+    private double add() {
+        return num1 + num2;
+    }
+    
+    private double subtract() {
+        return num1 - num2;
+    }
+    
+    private double multiply() {
+        return num1 * num2;
+    }
+    
+    private double divide() {
+        if (num2 == 0) {
+            throw new ArithmeticException("Error: Division by zero!");
+        }
+        return num1 / num2;
+    }
+    
+    public void displayCalculation() {
+        System.out.println("Calculation: " + num1 + " " + operator + " " + num2 + " = " + calculate());
+    }
+    
+    public double getNum1() {
+        return num1;
+    }
+    
+    public double getNum2() {
+        return num2;
+    }
+    
+    public char getOperator() {
+        return operator;
+    }
+}
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Please enter first number: ");
+        double num1 = scanner.nextDouble();
+        
+        System.out.print("Please enter your desired operator (+, -, *, /): ");
+        char operator = scanner.next().charAt(0);
+        
+        System.out.print("Please enter second number: ");
+        double num2 = scanner.nextDouble();
+        
+        Calculator calculator = new Calculator(num1, num2, operator);
+        
+        try {
+            calculator.displayCalculation();
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        scanner.close();
+    }
+}
